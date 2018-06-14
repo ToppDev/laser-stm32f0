@@ -8,69 +8,68 @@
   ******************************************************************************
 */
 
+#include "main.h"
 
 #include "stm32f0xx.h"
-#include "stm32f0308_discovery.h"
-
 #include "stm32f0xx_hal.h"
 
-void input_conf()
+#include "dig_io.h"
+
+/**
+  * @brief Checks if the @link appState App State @endlink contains an error
+  * @retval int True(1) on Error, otherwise False(0)
+  */
+int isAppStateFailure()
 {
-	/*GPIO_InitTypeDef GPIO_InitStructure;
-	EXTI_InitTypeDef EXTI_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
-
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-
-	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStructure.Pin = GPIO_PIN_0;
-	GPIO_InitStructure.Pull = GPIO_NOPULL;
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
-
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-	EXTI_InitStructure.EXTI_Line = EXTI_Line0;
-	EXTI_InitStructure.EXTI_Mode = EXTI_MODE_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	EXTI_Init()
-
-	NVIX_InitStructure.NVIC_IRQChannel = EXTI0_1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC*/
+    if (appState >= APP_STATE_FAILURE)
+        return 1;
+    else
+        return 0;
 }
 
-void EXTI0_1_IRQHandler(void)
+/**
+  * @brief Exit Program
+  * @note In Debug Mode here can be set a Breakpoint to Debug Program
+  * @retval None
+  */
+void exitProgram(AppState_t error)
 {
-	//EXTI_ClearITPendingBit(EXTI_Line0);
+    appState = error;
+
+#ifdef DEBUG
+    HAL_Delay(1); // Just a line to set a breakpoint on
+#else
+    DigOut_Lo(LED_BLUE);
+
+    for(;;)
+    {
+        DigOut_Toggle(LED_GREEN);
+        DigOut_Toggle(LED_BLUE);
+        HAL_Delay(100);
+    }
+#endif
 }
 
 int main(void)
 {
 	/* Initialize Hardware Abstraction Layer */
-	HAL_Init();
+    if (HAL_Init() != HAL_OK)
+        exitProgram(AS_Failure_HAL_Init);
 
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-
-	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pin = GPIO_PIN_8 | GPIO_PIN_9;
-	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
-	//GPIO_InitStructure.Pull = GPIO_PULLDOWN
-
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
-
-	// External Interrupt
-
+    /* Initialize GPIO Pins and external Interrupts */
+    if(DigIO_Init())
+        exitProgram(AS_Failure_DigIO_Init);
 
 	for(;;)
 	{
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
-		HAL_Delay(200);
+
 	}
+}
+
+void TM_EXTI_Handler(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == DIG_IO_PIN[BUTTON_USER].GPIO_PIN)
+    {
+        DigOut_Toggle(LED_GREEN);
+    }
 }
