@@ -13,6 +13,7 @@ DIG_IO_PIN_t DIG_IO_PIN[] = {
     {LED_GREEN,      GPIOC, GPIO_PIN_9,  TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_High, GPIO_PIN_RESET},
     {LED_BLUE,       GPIOC, GPIO_PIN_8,  TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_DOWN,   TM_GPIO_Speed_High, GPIO_PIN_RESET},
     {BUTTON_USER,    GPIOA, GPIO_PIN_0,  TM_GPIO_Mode_IN,  TM_GPIO_OType_PP, TM_GPIO_PuPd_DOWN,   TM_GPIO_Speed_High, GPIO_PIN_RESET, TM_EXTI_Trigger_Falling},
+    {LASER,		     GPIOB, GPIO_PIN_1,  TM_GPIO_Mode_OUT, TM_GPIO_OType_PP, TM_GPIO_PuPd_NOPULL, TM_GPIO_Speed_High, GPIO_PIN_RESET},
 };
 
 /* Initialization of all Digital-Out Pins */

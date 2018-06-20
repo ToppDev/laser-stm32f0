@@ -20,6 +20,7 @@ typedef enum
     LED_GREEN,      ///< Green LED
     LED_BLUE,       ///< Blue LED
     BUTTON_USER,    ///< User Button
+	LASER,			///< Laser Pin
 } DIG_IO_NAME_t;
 
 /**

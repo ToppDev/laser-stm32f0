@@ -70,6 +70,6 @@ void TM_EXTI_Handler(uint16_t GPIO_Pin)
 {
     if (GPIO_Pin == DIG_IO_PIN[BUTTON_USER].GPIO_PIN)
     {
-        DigOut_Toggle(LED_GREEN);
+        DigOut_Toggle(LASER);
     }
 }
