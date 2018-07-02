@@ -10,6 +10,8 @@
 
 #include "stm32f0xx_hal.h"
 
+#define EXTI_NVIC_PRIORITY 0x00
+
 typedef enum {
 	DigIO_Result_Ok = 0x00, /*!< Everything ok */
 	DigIO_Result_Error      /*!< An error has occured */

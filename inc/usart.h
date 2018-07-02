@@ -3,8 +3,8 @@
 
 #include "stm32f0xx_hal.h"
 
-USART_HandleTypeDef USARTInitStruct;
+UART_HandleTypeDef huart1;
 
-void USARTInit();
+void USART_Init();
 
 #endif /* USART_H_ */
