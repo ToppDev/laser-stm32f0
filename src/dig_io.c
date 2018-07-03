@@ -34,17 +34,9 @@ DigIO_Result_t DigIO_Init()
 
     for (dig_pin = 0; dig_pin < dig_out_count; dig_pin++)
     {
-        /*if (DIG_IO_PIN[dig_pin].GPIO_MODE == GPIO_MODE_INPUT && DIG_IO_PIN[dig_pin].EXTI_Trigger != -1)
-        {
-            TM_EXTI_Result_t TM_EXTI_Result = TM_EXTI_Attach(DIG_IO_PIN[dig_pin].GPIO_PORT, DIG_IO_PIN[dig_pin].GPIO_PIN,
-        				                                       DIG_IO_PIN[dig_pin].EXTI_Trigger, DIG_IO_PIN[dig_pin].GPIO_PULL);
-            if (TM_EXTI_Result != TM_EXTI_Result_Ok)
-                return DigIO_Result_Error;
-        }
-        else*/
-        	GPIO_Init(DIG_IO_PIN[dig_pin].GPIO_PORT, DIG_IO_PIN[dig_pin].GPIO_PIN,
-                    DIG_IO_PIN[dig_pin].GPIO_MODE, DIG_IO_PIN[dig_pin].GPIO_PULL,
-					DIG_IO_PIN[dig_pin].GPIO_SPEED, DIG_IO_PIN[dig_pin].GPIO_AF);
+        GPIO_Init(DIG_IO_PIN[dig_pin].GPIO_PORT, DIG_IO_PIN[dig_pin].GPIO_PIN,
+                  DIG_IO_PIN[dig_pin].GPIO_MODE, DIG_IO_PIN[dig_pin].GPIO_PULL,
+			      DIG_IO_PIN[dig_pin].GPIO_SPEED, DIG_IO_PIN[dig_pin].GPIO_AF);
 
         // Default Value
         if (DIG_IO_PIN[dig_pin].GPIO_MODE == GPIO_MODE_OUTPUT_PP || DIG_IO_PIN[dig_pin].GPIO_MODE == GPIO_MODE_OUTPUT_OD)
@@ -194,6 +186,7 @@ void EXTI2_3_IRQHandler(void) {
 		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
 	}
 }
+
 void EXTI4_15_IRQHandler(void) {
 	/* Check status */
 	if (EXTI->PR & (EXTI_PR_PR4)) {
