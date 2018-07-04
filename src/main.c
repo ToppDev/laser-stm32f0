@@ -7,57 +7,35 @@
 #include "dig_io.h"
 #include "usart.h"
 
-
-char rx_cmd[2];
-char rx_buff[1];
+char rx_buff[2];
 char tx_buff[32] = "";
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == USART1)  //current UART
 	{
-		if (rx_cmd[0] != 'L')
+		if (strcmp(rx_buff, "L1") == 0)
 		{
-			if (rx_buff[0] == 'L')
-			{
-				rx_cmd[0] = 'L';
-			}
-			else if (rx_buff[0] != '\r' && rx_buff[0] != '\n')
-			{
-				sprintf(tx_buff, "Unknown command\n");
-				HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
-			}
+			DigOut_Hi(LED_BLUE);
+			DigOut_Hi(LASER);
 		}
-		else
+		else if (strcmp(rx_buff, "L0") == 0)
 		{
-			rx_cmd[1] = rx_buff[0];
-
-			if (strcmp(rx_cmd, "L1") == 0)
-			{
-				DigOut_Hi(LED_BLUE);
-				DigOut_Hi(LASER);
-			}
-			else if (strcmp(rx_cmd, "L0") == 0)
-			{
-				DigOut_Lo(LED_BLUE);
-				DigOut_Lo(LASER);
-			}
-			else if (strcmp(rx_cmd, "L?") == 0)
-			{
-				sprintf(tx_buff, "Laser: %s\n", (DigIO_Read(LASER) == 1) ? "an" : "aus");
-				HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
-			}
-			else //if (strcmp(rx_cmd, "\r\n") != 0)
-			{
-				sprintf(tx_buff, "Unknown command\n");
-				HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
-			}
-
-			rx_cmd[0] = 0;
-			rx_cmd[1] = 0;
+			DigOut_Lo(LED_BLUE);
+			DigOut_Lo(LASER);
+		}
+		else if (strcmp(rx_buff, "L?") == 0)
+		{
+			sprintf(tx_buff, "Laser: %s\n", (DigIO_Read(LASER) == 1) ? "an" : "aus");
+			HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
+		}
+		else //if (strcmp(rx_cmd, "\r\n") != 0)
+		{
+			sprintf(tx_buff, "Unknown command\n");
+			HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
 		}
 
-		HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 1); //activate UART receive interrupt every time
+		HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 2); //activate UART receive interrupt every time
 	}
 }
 
@@ -81,7 +59,7 @@ int main(void)
     USART_Init();
 
     /* Start the UART Receive Interrupt */
-    HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 1);
+    HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 2);
 
 	for(;;)
 	{
