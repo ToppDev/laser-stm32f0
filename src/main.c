@@ -35,7 +35,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			HAL_UART_Transmit_IT(&huart1, (uint8_t*)tx_buff, strlen(tx_buff));
 		}
 
-		HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 2); //activate UART receive interrupt every time
+		HAL_UART_Receive_DMA(&huart1, (uint8_t*)rx_buff, 2); //activate UART receive interrupt every time
 	}
 }
 
@@ -59,7 +59,7 @@ int main(void)
     USART_Init();
 
     /* Start the UART Receive Interrupt */
-    HAL_UART_Receive_IT(&huart1, (uint8_t*)rx_buff, 2);
+    HAL_UART_Receive_DMA(&huart1, (uint8_t*)rx_buff, 2);
 
 	for(;;)
 	{
