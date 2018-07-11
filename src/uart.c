@@ -64,6 +64,7 @@ void DMA1_Channel1_IRQHandler(void)
 // Low Level API Lösung, funktioniert leider auch nicht
 // https://community.st.com/thread/42689-efficiently-use-dma-with-uart-rx-on-stm32
 
+/*
 #define DMA_RX_BUFFER_SIZE          2
 uint8_t DMA_RX_Buffer[DMA_RX_BUFFER_SIZE];
 
@@ -87,12 +88,12 @@ void UART_LL_Init()
     USART_InitStruct.TransferDirection = LL_USART_DIRECTION_TX_RX;
     LL_USART_Init(USART1, &USART_InitStruct);
 
-    /* Enable USART and enable interrupt for IDLE line detection */
+    // Enable USART and enable interrupt for IDLE line detection
     LL_USART_Enable(USART1);
     LL_USART_EnableDMAReq_RX(USART1);
     LL_USART_EnableIT_IDLE(USART1);
 
-    /* Enable USART global interrupts */
+    // Enable USART global interrupts
     NVIC_SetPriority(USART1_IRQn, 1);
     NVIC_EnableIRQ(USART1_IRQn);
 }
@@ -101,7 +102,7 @@ void UART_DMA_LL_Init()
 {
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
 
-    /* Configure DMA for USART RX */
+    // Configure DMA for USART RX
     LL_DMA_StructInit(&DMA_InitStruct);
     DMA_InitStruct.Direction = LL_DMA_DIRECTION_PERIPH_TO_MEMORY;
     DMA_InitStruct.MemoryOrM2MDstAddress = (uint32_t)DMA_RX_Buffer;
@@ -113,7 +114,7 @@ void UART_DMA_LL_Init()
     LL_DMA_EnableIT_TC(DMA1, LL_DMA_CHANNEL_4);
     LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_4);
 
-    /* Enable global DMA stream interrupts */
+    // Enable global DMA stream interrupts
     NVIC_SetPriority(DMA1_Channel4_5_IRQn, 0);
     NVIC_EnableIRQ(DMA1_Channel4_5_IRQn);
 }
@@ -122,3 +123,4 @@ void DMA1_Channel4_5_IRQHandler()
 {
     DigOut_Hi(LED_GREEN);
 }
+*/
