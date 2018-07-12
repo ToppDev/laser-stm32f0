@@ -10,8 +10,9 @@
 
 #include "stm32f0xx_hal.h"
 
-#define EXTI_NVIC_PRIORITY 0x00
-
+/**
+ * @brief DigIO Result enumeration
+ */
 typedef enum {
 	DigIO_Result_Ok = 0x00, /*!< Everything ok */
 	DigIO_Result_Error      /*!< An error has occured */
@@ -24,7 +25,6 @@ typedef enum
 {
     LED_GREEN,      ///< Green LED
     LED_BLUE,       ///< Blue LED
-    BUTTON_USER,    ///< User Button
 	LASER,			///< Laser Pin
 	USART_TX,       ///< USART Transmitter
 	USART_RX,		///< USART Receiver

@@ -1,15 +1,12 @@
 #include <uart.h>
 
-/*#include "stm32f0xx_ll_dma.h"
-#include "stm32f0xx_ll_usart.h"
-#include "stm32f0xx_ll_gpio.h"
-#include "stm32f0xx_ll_rcc.h"
-#include "stm32f0xx_ll_bus.h"*/
-
+/* Initializes the UART peripheral */
 void UART_Init()
 {
+	// Enable USART1 clock
 	__HAL_RCC_USART1_CLK_ENABLE();
 
+	// Configure UART Handle Init Structure
 	UART_Handle.Instance = USART1;
 	UART_Handle.Init.BaudRate = 9600;
 	UART_Handle.Init.Mode = UART_MODE_TX_RX;
@@ -19,52 +16,67 @@ void UART_Init()
 	UART_Handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	UART_Handle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 
+	// Enable UART Interrupts
     HAL_NVIC_SetPriority(USART1_IRQn, 0x03, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
     HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
 
+    // Initialize UART Handle
 	HAL_UART_Init(&UART_Handle);
 }
 
+/* This function handles USART1 global interrupts */
 void USART1_IRQHandler(void)
 {
     HAL_UART_IRQHandler(&UART_Handle);
 }
 
+/* Initializes the UART DMA for Receive Interrupts in DMA Mode */
 void UART_DMA_Init()
 {
-    /* DMA controller clock enable */
+    // Enable DMA1 clock
     __HAL_RCC_DMA1_CLK_ENABLE();
 
-    /* Peripheral DMA init*/
-    UART_DMA_Handle.Instance = DMA1_Channel1;
-    UART_DMA_Handle.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    UART_DMA_Handle.Init.PeriphInc = DMA_PINC_DISABLE;
-    UART_DMA_Handle.Init.MemInc = DMA_MINC_ENABLE;
-    UART_DMA_Handle.Init.PeriphDataAlignment = DMA_MDATAALIGN_BYTE;
-    UART_DMA_Handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    UART_DMA_Handle.Init.Mode = DMA_NORMAL;
-    UART_DMA_Handle.Init.Priority = DMA_PRIORITY_HIGH;
-    HAL_DMA_Init(&UART_DMA_Handle);
+    // Configure DMA Handle Init Structure
+    DMA_Handle.Instance = DMA1_Channel1;
+    DMA_Handle.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    DMA_Handle.Init.PeriphInc = DMA_PINC_DISABLE;
+    DMA_Handle.Init.MemInc = DMA_MINC_ENABLE;
+    DMA_Handle.Init.PeriphDataAlignment = DMA_MDATAALIGN_BYTE;
+    DMA_Handle.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    DMA_Handle.Init.Mode = DMA_NORMAL;
+    DMA_Handle.Init.Priority = DMA_PRIORITY_HIGH;
 
-    __HAL_LINKDMA(&UART_Handle, hdmarx, UART_DMA_Handle);
+    // Initialize DMA Handle
+    HAL_DMA_Init(&DMA_Handle);
 
-    /* DMA interrupt init */
+    // Link the UART DMA pointer and the DMA Handle
+    __HAL_LINKDMA(&UART_Handle, hdmarx, DMA_Handle);
+
+    // Enable DMA interrupts
     HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0x03, 0);
     HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
     HAL_NVIC_ClearPendingIRQ(DMA1_Channel1_IRQn);
 }
 
-/* This function handles DMA1 Channel1 global interrupt. */
+/* This function handles DMA1 Channel1 global interrupts */
 void DMA1_Channel1_IRQHandler(void)
 {
-    HAL_DMA_IRQHandler(&UART_DMA_Handle);
+    HAL_DMA_IRQHandler(&DMA_Handle);
 }
 
 // Low Level API Lösung, funktioniert leider auch nicht
 // https://community.st.com/thread/42689-efficiently-use-dma-with-uart-rx-on-stm32
 
 /*
+
+#include "stm32f0xx_ll_dma.h"
+#include "stm32f0xx_ll_usart.h"
+#include "stm32f0xx_ll_gpio.h"
+#include "stm32f0xx_ll_rcc.h"
+#include "stm32f0xx_ll_bus.h"
+
+
 #define DMA_RX_BUFFER_SIZE          2
 uint8_t DMA_RX_Buffer[DMA_RX_BUFFER_SIZE];
 

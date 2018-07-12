@@ -1,11 +1,9 @@
-#include <uart.h>
-#include "main.h"
-
 #include "stm32f0xx.h"
 #include "stm32f0xx_hal.h"
 #include "string.h"
 
 #include "dig_io.h"
+#include "uart.h"
 
 uint8_t rx_buff;
 char tx_buff[32] = "";
@@ -34,7 +32,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	    // Write newly received buffer into message buffer
 	    rx_msg[rx_msg_index++] = rx_buff;
 
-	    // 2 Characters received
+	    // RX_MSG_SIZE (2) Characters received
 	    if (rx_msg_index == RX_MSG_SIZE)
 	    {
 	        if (strcmp(rx_msg, "L1") == 0)
@@ -60,15 +58,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	        rx_msg_index = 0;
 	    }
 
-		HAL_UART_Receive_IT(&UART_Handle, &rx_buff, 1); //activate UART receive interrupt every time
-	}
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-	if (GPIO_Pin == DIG_IO_PIN[BUTTON_USER].GPIO_PIN)
-	{
-		DigOut_Toggle(LED_GREEN);
+	    //activate UART receive interrupt every time
+		HAL_UART_Receive_IT(&UART_Handle, &rx_buff, 1);
+	    //HAL_UART_Receive_DMA(&UART_Handle, &rx_buff, 1);
 	}
 }
 
