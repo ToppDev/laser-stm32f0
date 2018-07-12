@@ -619,8 +619,6 @@ www.isabellenhuette.de&lt;p&gt;
 <wire x1="-10.16" y1="43.18" x2="-10.16" y2="88.9" width="0.1524" layer="97"/>
 <wire x1="-10.16" y1="88.9" x2="22.86" y2="88.9" width="0.1524" layer="97"/>
 <text x="15.24" y="25.4" size="1.778" layer="97">gelb</text>
-<wire x1="71.12" y1="30.48" x2="93.98" y2="30.48" width="0.1524" layer="97"/>
-<wire x1="71.12" y1="33.02" x2="93.98" y2="33.02" width="0.1524" layer="97"/>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="71.12" y="63.5"/>

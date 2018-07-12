@@ -599,36 +599,40 @@ www.isabellenhuette.de&lt;p&gt;
 <sheets>
 <sheet>
 <plain>
+<wire x1="-12.7" y1="22.86" x2="-12.7" y2="7.62" width="0.1524" layer="97"/>
 <wire x1="-12.7" y1="7.62" x2="-10.16" y2="7.62" width="0.1524" layer="97"/>
+<wire x1="-10.16" y1="7.62" x2="-10.16" y2="0" width="0.1524" layer="97"/>
 <text x="-15.24" y="7.62" size="1.778" layer="97">schwarz</text>
-<text x="-12.7" y="30.48" size="1.778" layer="97">rot</text>
-<text x="-10.16" y="68.58" size="1.778" layer="97">rot</text>
-<wire x1="20.32" y1="38.1" x2="20.32" y2="20.32" width="0.1524" layer="97"/>
+<wire x1="-12.7" y1="40.64" x2="-12.7" y2="30.48" width="0.1524" layer="97"/>
+<text x="-12.7" y="35.56" size="1.778" layer="97">rot</text>
+<wire x1="10.16" y1="58.42" x2="10.16" y2="81.28" width="0.1524" layer="97"/>
+<text x="7.62" y="73.66" size="1.778" layer="97">gelb</text>
+<wire x1="0" y1="66.04" x2="-2.54" y2="66.04" width="0.1524" layer="97"/>
+<wire x1="-2.54" y1="66.04" x2="-2.54" y2="58.42" width="0.1524" layer="97"/>
+<wire x1="-2.54" y1="58.42" x2="-2.54" y2="55.88" width="0.1524" layer="97"/>
+<wire x1="-2.54" y1="55.88" x2="-20.32" y2="55.88" width="0.1524" layer="97"/>
+<wire x1="0" y1="58.42" x2="-2.54" y2="58.42" width="0.1524" layer="97"/>
+<wire x1="17.78" y1="45.72" x2="-5.08" y2="45.72" width="0.1524" layer="97"/>
+<text x="7.62" y="45.72" size="1.778" layer="97">rot</text>
+<wire x1="-5.08" y1="45.72" x2="-5.08" y2="50.8" width="0.1524" layer="97"/>
+<wire x1="-5.08" y1="50.8" x2="-12.7" y2="50.8" width="0.1524" layer="97"/>
+<wire x1="-20.32" y1="55.88" x2="-20.32" y2="45.72" width="0.1524" layer="97"/>
+<wire x1="-20.32" y1="45.72" x2="-17.78" y2="45.72" width="0.1524" layer="97"/>
+<wire x1="10.16" y1="81.28" x2="20.32" y2="81.28" width="0.1524" layer="97"/>
+<wire x1="20.32" y1="81.28" x2="20.32" y2="20.32" width="0.1524" layer="97"/>
 <wire x1="20.32" y1="20.32" x2="22.86" y2="20.32" width="0.1524" layer="97"/>
-<wire x1="-10.16" y1="17.78" x2="-10.16" y2="7.62" width="0.1524" layer="97"/>
-<wire x1="-10.16" y1="7.62" x2="22.86" y2="7.62" width="0.1524" layer="97"/>
-<wire x1="-10.16" y1="33.02" x2="-10.16" y2="25.4" width="0.1524" layer="97"/>
-<wire x1="5.08" y1="43.18" x2="2.54" y2="43.18" width="0.1524" layer="97"/>
-<wire x1="2.54" y1="43.18" x2="2.54" y2="38.1" width="0.1524" layer="97"/>
-<wire x1="-5.08" y1="38.1" x2="2.54" y2="38.1" width="0.1524" layer="97"/>
-<wire x1="2.54" y1="38.1" x2="2.54" y2="33.02" width="0.1524" layer="97"/>
-<wire x1="2.54" y1="33.02" x2="5.08" y2="33.02" width="0.1524" layer="97"/>
-<wire x1="15.24" y1="33.02" x2="15.24" y2="38.1" width="0.1524" layer="97"/>
-<wire x1="15.24" y1="38.1" x2="15.24" y2="43.18" width="0.1524" layer="97"/>
-<wire x1="15.24" y1="38.1" x2="20.32" y2="38.1" width="0.1524" layer="97"/>
-<wire x1="-10.16" y1="43.18" x2="-10.16" y2="88.9" width="0.1524" layer="97"/>
-<wire x1="-10.16" y1="88.9" x2="22.86" y2="88.9" width="0.1524" layer="97"/>
-<text x="15.24" y="25.4" size="1.778" layer="97">gelb</text>
-<wire x1="71.12" y1="30.48" x2="93.98" y2="30.48" width="0.1524" layer="97"/>
-<wire x1="71.12" y1="33.02" x2="93.98" y2="33.02" width="0.1524" layer="97"/>
+<wire x1="17.78" y1="45.72" x2="17.78" y2="88.9" width="0.1524" layer="97"/>
+<wire x1="17.78" y1="88.9" x2="22.86" y2="88.9" width="0.1524" layer="97"/>
+<wire x1="-10.16" y1="0" x2="22.86" y2="0" width="0.1524" layer="97"/>
+<wire x1="22.86" y1="0" x2="22.86" y2="7.62" width="0.1524" layer="97"/>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="71.12" y="63.5"/>
-<instance part="LASER" gate="1" x="-10.16" y="22.86"/>
+<instance part="LASER" gate="1" x="-12.7" y="27.94"/>
 <instance part="GND1" gate="1" x="121.92" y="30.48"/>
-<instance part="R1" gate="G$1" x="10.16" y="33.02"/>
-<instance part="R2" gate="G$1" x="10.16" y="43.18"/>
-<instance part="T1" gate="G$1" x="-7.62" y="38.1" rot="MR0"/>
+<instance part="R1" gate="G$1" x="5.08" y="58.42"/>
+<instance part="R2" gate="G$1" x="5.08" y="66.04"/>
+<instance part="T1" gate="G$1" x="-15.24" y="45.72"/>
 </instances>
 <busses>
 </busses>
