@@ -1,10 +1,3 @@
-/**
-  * @file dig_io.h
-  * @author Thomas Topp
-  * @date 14 March 2018
-  * @brief Definition of Used Pins and Functions to use them
-  */
-
 #ifndef DIG_IO_H_
 #define DIG_IO_H_
 

@@ -1,10 +1,3 @@
-/**
-  * @file dig_io.c
-  * @author Thomas Topp
-  * @date 14 June 2018
-  * @brief Definition of Used Pins and Functions to use them
-  */
-
 #include <dig_io.h>
 
 /* Private Functions */
